@@ -21,6 +21,12 @@ Kafka / MySQL（接入）
 > 聚焦**数据开发**：上游 Flink + Paimon 湖仓一体、StarRocks 直查、ADS 层语义。
 > 前后端（Flask / React / Dify）仅保留可选启动说明，不展开。
 
+## ✨ AI 问数系统运行截图
+
+![AI 问数多轮澄清](docs/screenshots/dify_chatflow_demo.png)
+
+> 用户用自然语言问"卖的最好的商品是哪个？" → 模型按时间规则反问确认时间范围 → 用户补"2026年7月25日" → 系统查询真实数据 → 输出 Markdown 表格（GMV 30,999.83 元）+ 关键发现 + 柱状图。完整链路：**自然语言 → RAG 召回 Schema → LLM 生成 SQL → StarRocks 查数 → 人话分析 + 图表**。
+
 ---
 
 ## 与原项目的主要差异
