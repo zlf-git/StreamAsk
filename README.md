@@ -1,6 +1,6 @@
 # AIDataAnalysis_StarRocks
 
-原项目 `AIDataAnalysis`（NL2SQL + 自动 BI 平台）的复刻版。将底层 OLAP 引擎从 **Apache Doris** 替换为 **StarRocks 3.2.x**，并**完整复现数据全栈环境**：
+原项目参考知乎等社媒平台讨论自动取数架构架构亮点是将底层 OLAP 引擎从 **Apache Doris** 替换为 **StarRocks 3.2.x**，增加物化视图加速查询，并**完整复现数据全栈环境**：
 
 ```
 Kafka / MySQL（接入）
@@ -42,12 +42,12 @@ localhost 请自行更换
 AIDataAnalysis_StarRocks/
 ├── backend/                    # Flask 后端（可选）
 ├── frontend/                   # React + Vite 前端（可选）
-├── dify/                       # Dify 工作流（可选）
+├── dify/                       # Dify 工作流（可选）（Dify巨坑：会出现网络故障，具体解决可以参考相关帖子）
 ├── docker/
 │   ├── mysql/init.sql          # MySQL 初始化（users 表 + admin 账号）
 │   ├── starrocks/init.sql      # StarRocks 初始化（外部 Paimon Catalog + 本地 mall_dw）
 │   └── flink/
-│       ├── Dockerfile          # 自构建 Flink 1.17.2 + Paimon 镜像（官方镜像国内拉不动）
+│       ├── Dockerfile          # 自构建 Flink 1.17.2 + Paimon 镜像（官方镜像国内拉不动）（踩的巨坑配置好Docker网络环境，拷打四大件基础！）
 │       ├── entrypoint.sh       # Flink 容器入口（处理 jobmanager/taskmanager 角色）
 │       ├── lib/                # Flink 所需 jar（paimon / hadoop / kafka connector）
 │       └── init/
