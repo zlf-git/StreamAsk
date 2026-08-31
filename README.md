@@ -27,19 +27,6 @@ Kafka / MySQL（接入）
 
 > 用户用自然语言问"卖的最好的商品是哪个？" → 模型按时间规则反问确认时间范围 → 用户补"2026年7月25日" → 系统查询真实数据 → 输出 Markdown 表格（GMV 30,999.83 元）+ 关键发现 + 柱状图。完整链路：**自然语言 → RAG 召回 Schema → LLM 生成 SQL → StarRocks 查数 → 人话分析 + 图表**。
 
----
-
-## 与原项目的主要差异
-
-| 项目 | 原项目 | 本复刻版 |
-|---|---|---|
-| OLAP 引擎 | Apache Doris | StarRocks 3.2.11（支持物化视图） |
-| 查询服务 | `doris_service.py` / `/api/doris/*` | `starrocks_service.py` / `/api/starrocks/*` |
-| LLM prompt 方言 | "Doris SQL" | "StarRocks SQL" |
-| Paimon 接入 | OSS 对象存储 | 本地文件系统（docker 共享卷，等价还原） |
-| Paimon 直查 | StarRocks 外部 Catalog | 同左，`paimon_catalog1` 已内置支持 |
-
----
 
 ## 环境要求
 
