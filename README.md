@@ -20,7 +20,7 @@ Kafka / MySQL（接入）
 
 > 聚焦**数据开发**：上游 Flink + Paimon 湖仓一体、StarRocks 直查、ADS 层语义。
 > 前后端（Flask / React / Dify）仅保留可选启动说明，不展开。
-
+localhost 请自行更换 
 ## ✨ AI 问数系统运行截图
 
 ![AI 问数多轮澄清](docs/screenshots/dify_chatflow_demo.png)
@@ -270,7 +270,7 @@ CREATE EXTERNAL CATALOG paimon_catalog1 PROPERTIES (
 
 ## 数据开发学习路线（基于本环境）
 
-1. **ADS 层 5 张表语义**：`dt` 用 `yyyyMMdd` 字符串、按 `dt` 分区、DECIMAL 精度。
+1. **ADS 层 5 张表语义**：`dt` 用 `yyyyMMdd` 字符串、按 `dt` 分区、DECIMAL 精度。--本数仓数据有个人偏好，不上传具体Flink sql和数据！！
 2. **Flink+Paimon ETL**：读 `docker/flink/init/paimon_demo.sql`，理解 ODS→DWD→DWS→ADS。
 3. **StarRocks 外部 Catalog**：`SET CATALOG paimon_catalog1` 直查湖仓。
 4. **物化视图加速**：`mv_trade_overview_7d` 自动路由。
