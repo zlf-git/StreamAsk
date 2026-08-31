@@ -1,0 +1,1116 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: AI数据分析工作流
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.1.32@20a5454088fa017b72490e1cbaeebff21094d11b13e41197591734d1c08cdbb5
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1773498002339-source-1773498012906-target
+      source: '1773498002339'
+      sourceHandle: source
+      target: '1773498012906'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1773498012906-source-1774340591943-target
+      source: '1773498012906'
+      sourceHandle: source
+      target: '1774340591943'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1774340591943-source-1774341550175-target
+      source: '1774340591943'
+      sourceHandle: source
+      target: '1774341550175'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1774341550175-false-1774341846226-target
+      source: '1774341550175'
+      sourceHandle: 'false'
+      target: '1774341846226'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1774341846226-source-1774342516266-target
+      source: '1774341846226'
+      sourceHandle: source
+      target: '1774342516266'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1774341550175-true-1774342828550-target
+      source: '1774341550175'
+      sourceHandle: 'true'
+      target: '1774342828550'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1774342828550-source-1774430012521-target
+      source: '1774342828550'
+      sourceHandle: source
+      target: '1774430012521'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: if-else
+      id: 1774430012521-source-1774430524373-target
+      source: '1774430012521'
+      sourceHandle: source
+      target: '1774430524373'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1774430524373-false-1774430612721-target
+      source: '1774430524373'
+      sourceHandle: 'false'
+      target: '1774430612721'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1774430524373-true-1774430650720-target
+      source: '1774430524373'
+      sourceHandle: 'true'
+      target: '1774430650720'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1774430650720-source-1774436969878-target
+      source: '1774430650720'
+      sourceHandle: source
+      target: '1774436969878'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1774436969878-source-1774430855338-target
+      source: '1774436969878'
+      sourceHandle: source
+      target: '1774430855338'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1774430650720-source-17744399644790-target
+      source: '1774430650720'
+      sourceHandle: source
+      target: '17744399644790'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 17744399644790-source-1774430855338-target
+      source: '17744399644790'
+      sourceHandle: source
+      target: '1774430855338'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: input
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: input
+        - default: ''
+          hint: ''
+          label: user_id
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: user_id
+        - default: ''
+          hint: ''
+          label: user_name
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: user_name
+        - default: ''
+          hint: ''
+          label: allowed_tables
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: allowed_tables
+      height: 187
+      id: '1773498002339'
+      position:
+        x: 99.4687768718465
+        y: 11.457485955669625
+      positionAbsolute:
+        x: 99.4687768718465
+        y: 11.457485955669625
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1773498002339'
+          - input
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.5-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: e89d8b09-7608-47a6-92ed-beabcc8bc2e4
+          role: system
+          text: "你是企业数据分析智能体中的“表路由助手”。
+
+你的任务：
+1. 理解用户的问题；
+2. 从给定的可用表中识别本次问题最需要使用的表；
+3. 输出结构化JSON，供后续权限校验和SQL生成使用。
+
+你只能从以下可用表中选择（全部位于 paimon_oss_catalog.mall_dw）：
+
+1. ads_realtime_overview
+用途：平台整体经营总览，适合整体订单、GMV、支付、买家、平均客单价趋势分析
+字段：
+- stat_date
+- gmv
+- order_cnt
+- buyer_uv
+- paid_order_cnt
+- paid_gmv
+- paid_buyer_uv
+- discount_amt
+- freight_amt
+- avg_order_amount
+
+2. ads_shop_rank_daily
+用途：店铺销售排名分析，适合店铺GMV、订单、买家数、平均客单价排行
+字段：
+- stat_date
+- rank_no
+- shop_id
+- shop_name
+- gmv
+- order_cnt
+- buyer_uv
+- avg_order_amount
+
+3. ads_top_spu_daily
+用途：SPU商品销售排行分析，适合商品销量、销售额、品牌排行
+字段：
+- stat_date
+- rank_no
+- spu_id
+- spu_name
+- brand
+- quantity
+- gmv
+- order_cnt
+- buyer_uv
+
+4. dws_shop_daily_gmv
+用途：店铺日粒度销售明细，适合按店铺分组的趋势、汇总、对比分析
+字段：
+- shop_id
+- shop_name
+- stat_date
+- order_cnt
+- buyer_uv
+- gmv
+- discount_amt
+- freight_amt
+- net_pay_amt
+- avg_order_amount
+- total_quantity
+
+5. dws_spu_daily_sales
+用途：SPU日粒度销售明细，适合按商品/品牌分组的趋势、汇总、对比分析
+字段：
+- spu_id
+- spu_name
+- brand
+- stat_date
+- order_cnt
+- sku_sold_cnt
+- quantity
+- gmv
+- discount_amt
+- buyer_uv
+
+6. dws_category_daily_sales
+用途：类目日粒度销售分析，适合按公司类目路径分组的汇总分析
+字段：
+- company_category_id
+- company_category_path
+- stat_date
+- order_cnt
+- quantity
+- gmv
+- discount_amt
+- buyer_uv
+
+7. dws_user_daily_activity
+用途：用户日购买行为分析，适合按日期统计UV、订单、人均单数、人均金额
+字段：
+- stat_date
+- buyer_uv
+- new_buyer_uv
+- order_cnt
+- gmv
+- avg_orders_per_user
+- avg_gmv_per_user
+
+识别规则：
+1. 如果用户问整体经营、整体GMV、平台订单、平台概览、总览，优先选择 ads_realtime_overview
+2. 如果用户问店铺排名、店铺销售排行、哪个店铺卖得好，优先选择 ads_shop_rank_daily
+3. 如果用户问商品排名、SPU销量、热卖商品、品牌销售，优先选择 ads_top_spu_daily
+4. 如果用户问按店铺分组汇总、店铺对比、店铺趋势，优先选择 dws_shop_daily_gmv
+5. 如果用户问按商品/品牌分组汇总、商品对比、商品趋势，优先选择 dws_spu_daily_sales
+6. 如果用户问类目销售、品类分析、公司类目，优先选择 dws_category_daily_sales
+7. 如果用户问用户购买行为、人均单数、人均金额、新买家，优先选择 dws_user_daily_activity
+8. 若未指定时间，默认最近7天
+9. 若表达趋势，默认按天分析
+10. 若表达排行，默认Top10
+11. 优先只返回1张表；只有明确需要时才返回2张表
+12. 不做权限判断
+13. 仅输出JSON，不要输出解释文字
+
+输出格式：
+{
+  "user_question_rewrite": "",
+  "analysis_type": "",
+  "metrics": [],
+  "dimensions": [],
+  "filters": {
+    "time_desc": "",
+    "time_range": {
+      "start": "",
+      "end": ""
+    }
+  },
+  "time_granularity": "",
+  "topn": null,
+  "candidate_tables": [],
+  "table_selection_reason": "",
+  "assumptions": []
+}
+
+用户问题：
+{{{#1773498002339.input#}}}"
+        selected: false
+        structured_output_enabled: true
+        title: 数据路由
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1773498012906'
+      position:
+        x: 388.66062916552573
+        y: 186.45074265599746
+      positionAbsolute:
+        x: 388.66062916552573
+        y: 186.45074265599746
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\ndef main(arg1: str, arg2: str):\n    import json\n    allowed_tables\
+          \ = [x.strip() for x in arg1.split(\",\") if x.strip()]\n\n    data = json.loads(arg2)\n\
+          \    candidate_tables = data.get(\"candidate_tables\", [])\n\n    authorized_tables\
+          \ = [t for t in candidate_tables if t in allowed_tables]\n\n    unauthorized_tables\
+          \ = [t for t in candidate_tables if t not in allowed_tables]\n\n    has_permission\
+          \ = len(unauthorized_tables) == 0 and len(candidate_tables) > 0\n    \n\
+          \    result = {\n    \"authorized_tables\": authorized_tables,\n    \"unauthorized_tables\"\
+          : unauthorized_tables,\n    \"has_permission\": has_permission\n    }\n\n\
+          \    return result"
+        code_language: python3
+        outputs:
+          authorized_tables:
+            children: null
+            type: array[string]
+          has_permission:
+            children: null
+            type: boolean
+          unauthorized_tables:
+            children: null
+            type: array[string]
+        selected: false
+        title: 用户鉴权
+        type: code
+        variables:
+        - value_selector:
+          - '1773498002339'
+          - allowed_tables
+          value_type: string
+          variable: arg1
+        - value_selector:
+          - '1773498012906'
+          - text
+          value_type: string
+          variable: arg2
+      height: 52
+      id: '1774340591943'
+      position:
+        x: 680.3961034329103
+        y: 48.328851144880474
+      positionAbsolute:
+        x: 680.3961034329103
+        y: 48.328851144880474
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 1b1f0f81-7380-4739-b2f7-b07ee7154b70
+            value: true
+            varType: boolean
+            variable_selector:
+            - '1774340591943'
+            - has_permission
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 124
+      id: '1774341550175'
+      position:
+        x: 980.7000953990366
+        y: 161.92852088805984
+      positionAbsolute:
+        x: 980.7000953990366
+        y: 161.92852088805984
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.5-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8ff0e4c0-dffc-4cc0-be7c-f4c9bc4a2177
+          role: system
+          text: '你是企业数据分析助手的权限提示模块。
+
+
+            当前用户的问题涉及部分无权限数据表，请根据输入信息输出一段简洁、礼貌、专业的提示话术。
+
+
+            要求：
+
+            1. 明确说明当前问题涉及的数据暂无查询权限，需要告诉用户是哪张表没有权限
+
+            2. 不要暴露内部实现细节；
+
+            3. 引导用户联系管理员开通权限，或调整为已授权表范围内的问题；
+
+            4. 输出简洁，不要过长；
+
+            5. 仅输出最终话术。
+
+
+            输入信息：
+
+            - 用户名：{{#1773498002339.user_name#}}
+
+            - 用户问题：{{#1773498002339.input#}}
+
+            - 已授权表：{{#1774340591943.authorized_tables#}}
+
+            - 无权限表：{{#1774340591943.unauthorized_tables#}}'
+        selected: false
+        title: 无权限兜底
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1774341846226'
+      position:
+        x: 1343.7064455475906
+        y: 173.74776761300802
+      positionAbsolute:
+        x: 1343.7064455475906
+        y: 173.74776761300802
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1774341846226'
+          - text
+          value_type: string
+          variable: result
+        selected: false
+        title: 输出 2
+        type: end
+      height: 88
+      id: '1774342516266'
+      position:
+        x: 1644.4011927528513
+        y: 173.74776761300802
+      positionAbsolute:
+        x: 1644.4011927528513
+        y: 173.74776761300802
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.5-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: ed089060-5e34-4827-b851-d331997e76df
+          role: system
+          text: '你是 StarRocks SQL 生成助手，负责基于用户问题和结构化分析需求，为 StarRocks 查询 Paimon ADS/DWS 表生成安全、准确、可执行的 SQL。
+
+你必须严格遵守以下规则：
+1. 只能生成 SELECT 语句；
+2. 禁止 INSERT、UPDATE、DELETE、DROP、TRUNCATE、ALTER、CREATE；
+3. 只能使用本次已授权且已通过校验的数据表；
+4. 只能使用真实存在的字段；
+5. SQL 需兼容 StarRocks 查询语法；
+6. 明细查询最多 LIMIT 200；
+7. 聚合和排行查询最多 LIMIT 100；
+8. 时间字段 stat_date 格式为 yyyy-MM-dd；
+9. 若未指定明确时间，默认最近7天，时间范围基于 current_date 动态计算；
+10. 趋势分析必须按 stat_date 升序排序；
+11. 排行分析必须按核心指标降序排序；
+12. 不要输出解释，不要Markdown，不要注释，只输出SQL；
+13. 如果无法基于本次已授权表生成正确SQL，返回 NO_VALID_SQL；
+14. 查询表时必须使用完整路径：paimon_oss_catalog.mall_dw.<表名>；
+15. 对ads_top_spu_daily和ads_shop_rank_daily查询时，rank_no 已表示排行，可直接按 rank_no 排序或按gmv排序。
+
+本次用户信息：
+- user_id: {{#1773498002339.user_id#}}
+- user_name: {{#1773498002339.user_name#}}
+
+本次已授权可用表（位于 paimon_oss_catalog.mall_dw）：
+{{#1774340591943.authorized_tables#}}
+
+表结构如下：
+
+【ads_realtime_overview】
+- stat_date STRING
+- gmv DECIMAL(16,2)
+- order_cnt BIGINT
+- buyer_uv BIGINT
+- paid_order_cnt BIGINT
+- paid_gmv DECIMAL(16,2)
+- paid_buyer_uv BIGINT
+- discount_amt DECIMAL(16,2)
+- freight_amt DECIMAL(16,2)
+- avg_order_amount DECIMAL(16,2)
+
+【ads_shop_rank_daily】
+- stat_date STRING
+- rank_no INT
+- shop_id STRING
+- shop_name STRING
+- gmv DECIMAL(16,2)
+- order_cnt BIGINT
+- buyer_uv BIGINT
+- avg_order_amount DECIMAL(16,2)
+
+【ads_top_spu_daily】
+- stat_date STRING
+- rank_no INT
+- spu_id STRING
+- spu_name STRING
+- brand STRING
+- quantity BIGINT
+- gmv DECIMAL(16,2)
+- order_cnt BIGINT
+- buyer_uv BIGINT
+
+【dws_shop_daily_gmv】
+- shop_id STRING
+- shop_name STRING
+- stat_date STRING
+- order_cnt BIGINT
+- buyer_uv BIGINT
+- gmv DECIMAL(16,2)
+- discount_amt DECIMAL(16,2)
+- freight_amt DECIMAL(16,2)
+- net_pay_amt DECIMAL(16,2)
+- avg_order_amount DECIMAL(16,2)
+- total_quantity BIGINT
+
+【dws_spu_daily_sales】
+- spu_id STRING
+- spu_name STRING
+- brand STRING
+- stat_date STRING
+- order_cnt BIGINT
+- sku_sold_cnt BIGINT
+- quantity BIGINT
+- gmv DECIMAL(16,2)
+- discount_amt DECIMAL(16,2)
+- buyer_uv BIGINT
+
+【dws_category_daily_sales】
+- company_category_id STRING
+- company_category_path STRING
+- stat_date STRING
+- order_cnt BIGINT
+- quantity BIGINT
+- gmv DECIMAL(16,2)
+- discount_amt DECIMAL(16,2)
+- buyer_uv BIGINT
+
+【dws_user_daily_activity】
+- stat_date STRING
+- buyer_uv BIGINT
+- new_buyer_uv BIGINT
+- order_cnt BIGINT
+- gmv DECIMAL(16,2)
+- avg_orders_per_user DECIMAL(10,2)
+- avg_gmv_per_user DECIMAL(16,2)
+
+业务术语映射：
+- 总订单数 = order_cnt
+- 支付订单数 = paid_order_cnt
+- 总成交金额/GMV = gmv
+- 支付GMV = paid_gmv
+- 支付用户数 = paid_buyer_uv
+- 买家数/访问用户数 = buyer_uv
+- 新买家数 = new_buyer_uv
+- 平均客单价 = avg_order_amount
+- 商品销量/销量 = quantity
+- 商品销售额 = gmv
+- 店铺 = shop_name
+- SPU/商品 = spu_name
+- 品牌 = brand
+- 类目 = company_category_path
+- 人均单数 = avg_orders_per_user
+- 人均金额 = avg_gmv_per_user
+
+结构化分析需求：
+{{#1773498012906.text#}}
+
+补充生成规则：
+1. candidate_tables 与 authorized_tables 已经完成权限校验，你只能在 authorized_tables 范围内生成 SQL；
+2. 优先只使用1张表；
+3. 如果 analysis_type 为 trend，则按 stat_date 展示并排序；
+4. 如果 analysis_type 为 ranking，则按核心指标降序并 LIMIT topn；
+5. 如果 analysis_type 为 compare，则按维度分组；
+6. 不允许使用未授权表进行 join；
+7. 不允许跨主题乱用字段；
+8. 如果问题和已授权表不匹配，返回 NO_VALID_SQL。
+
+仅输出 SQL 或 NO_VALID_SQL：'
+        selected: false
+        title: Text2SQL
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1774342828550'
+      position:
+        x: 1343.7064455475906
+        y: -23.57136392253092
+      positionAbsolute:
+        x: 1343.7064455475906
+        y: -23.57136392253092
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1774342828550'
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.5-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 9f83ecfe-f1b8-4d44-8dee-7fd950c80867
+          role: system
+          text: '你是 StarRocks SQL 审核助手。
+
+
+            请检查以下SQL是否符合安全与可执行要求。
+
+
+            规则：
+
+            1. 只能是 SELECT 语句；
+
+            2. 不允许包含 INSERT、UPDATE、DELETE、DROP、TRUNCATE、ALTER、CREATE；
+
+            3. 只能使用本次 authorized_tables 中的表；
+
+            4. 不允许使用不存在字段；
+
+            5. 不允许 join 未授权表；
+
+            6. 明细查询必须有限制行数；
+
+            7. 若合法，返回 valid=true；
+
+            8. 若不合法，给出 issues 和 fixed_sql。
+
+
+            本次可用表：
+
+            {{#1774340591943.authorized_tables#}}
+
+
+            待审核SQL：
+
+            {{#1774342828550.text#}}
+
+
+            输出valid即可'
+        selected: false
+        structured_output_enabled: true
+        title: SQL-REVIEWER
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1774430012521'
+      position:
+        x: 1652.2327095212895
+        y: -23.57136392253092
+      positionAbsolute:
+        x: 1652.2327095212895
+        y: -23.57136392253092
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 1e04872e-f20b-49a7-83e7-06d274dbea03
+            value: 'true'
+            varType: string
+            variable_selector:
+            - '1774430012521'
+            - text
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支 2
+        type: if-else
+      height: 124
+      id: '1774430524373'
+      position:
+        x: 1943.7906871633718
+        y: -126.23826952900629
+      positionAbsolute:
+        x: 1943.7906871633718
+        y: -126.23826952900629
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1774430012521'
+          - text
+          value_type: string
+          variable: text
+        selected: false
+        title: 输出 2
+        type: end
+      height: 88
+      id: '1774430612721'
+      position:
+        x: 2305.2770868405823
+        y: 38.81107040840759
+      positionAbsolute:
+        x: 2305.2770868405823
+        y: 38.81107040840759
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-50
+            key: ''
+            type: text
+            value: '{"sql": {{#1774342828550.text#}}}'
+          type: json
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求
+        type: http-request
+        url: http://host.docker.internal:5001/api/starrocks/query
+        variables: []
+      height: 137
+      id: '1774430650720'
+      position:
+        x: 2289.8543289792833
+        y: -173.12585549607275
+      positionAbsolute:
+        x: 2289.8543289792833
+        y: -173.12585549607275
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1774436969878'
+          - text
+          value_type: string
+          variable: result1
+        - value_selector:
+          - '17744399644790'
+          - text
+          value_type: string
+          variable: result2
+        selected: false
+        title: 输出 3
+        type: end
+      height: 114
+      id: '1774430855338'
+      position:
+        x: 3029.2667703017933
+        y: -168.8478315507346
+      positionAbsolute:
+        x: 3029.2667703017933
+        y: -168.8478315507346
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.5-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 678f6cb4-7446-4613-ac57-38c7b908f407
+          role: system
+          text: '你是企业经营分析助手。请基于用户问题和查询结果，输出简洁、专业的分析内容。
+
+
+            要求：
+
+            1. 使用 Markdown 输出；
+
+            2. 先直接回答用户问题；
+
+            3. 展示查询结果中的核心数据，优先使用 Markdown 表格；
+
+            4. 若结果较多，仅展示前 5 条；
+
+            5. 根据结果输出 2-3 条关键发现；
+
+            6. 趋势类说明走势，排行类说明头部项，对比类说明差异；
+
+            7. 如果结果为空，输出“当前查询条件下暂无数据”；
+
+            8. 不得编造数据，不要原样输出完整 JSON。
+
+
+            请严格按以下格式输出：
+
+
+            ### 结论
+
+            用 1-2 句话回答用户问题。
+
+
+            ### 核心数据
+
+            整理查询结果，优先用 Markdown 表格展示。
+
+
+            ## 关键发现
+
+            1. ...
+
+            2. ...
+
+            3. ...
+
+
+            ### 分析说明
+
+            简要说明趋势、排行或对比结果。
+
+
+            输入：
+
+            - 用户问题：{{#1773498002339.input#}}
+
+            - 查询结果：{{#1774430650720.body#}}'
+        selected: false
+        title: 数据分析
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1774436969878'
+      position:
+        x: 2621.50626137916
+        y: -279.88959804863555
+      positionAbsolute:
+        x: 2621.50626137916
+        y: -279.88959804863555
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.5-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 678f6cb4-7446-4613-ac57-38c7b908f407
+          role: system
+          text: '你是数据可视化助手。请基于用户问题和查询结果，输出适合前端直接渲染的 ECharts option 配置。
+
+
+            要求：
+
+            1. 输出必须为合法 JSON；
+
+            2. 仅输出 ECharts option，不要输出解释文字；
+
+            3. 趋势数据优先使用 line 图；
+
+            4. 排行/对比数据优先使用 bar 图；
+
+            5. 占比数据优先使用 pie 图；
+
+            6. 必须基于查询结果生成，不得编造；
+
+            7. 如果结果为空，返回 null。
+
+
+            输入：
+
+            - 用户问题：{{#1773498002339.input#}}
+
+            - 查询结果：{{#1774430650720.body#}}'
+        selected: false
+        title: 数据可视化
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '17744399644790'
+      position:
+        x: 2636.5523829748377
+        y: -54.59507470503486
+      positionAbsolute:
+        x: 2636.5523829748377
+        y: -54.59507470503486
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -648.1793858913607
+      y: 268.0261154026608
+      zoom: 0.7110560404104296
+  rag_pipeline_variables: []

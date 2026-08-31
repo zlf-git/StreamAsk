@@ -1,0 +1,12 @@
+# ===== 敏感凭证：绝不提交 =====
+.env
+docker/flink/init/paimon_oss_hive_catalog.sql
+
+# ===== Python =====
+venv/
+__pycache__/
+*.pyc
+
+# ===== 杂项 =====
+*.log
+.DS_Store

@@ -1,0 +1,4 @@
+@echo off
+chcp 65001 >nul
+
+REM 如果 docker 不在 PATH，自

@@ -1,0 +1,578 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: TEXTSQL
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/moonshot:0.1.12@7739ca8bc62af75a2087d9d3de568d1fd3c3c5854290b3b9dffb72ddaa30eb87
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.20@850efe73fb62bbe7ab2229116086596596297a77174fb86f73e1363b99a24116
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.2.15@1df8bd27d67c149e6db3c210830ef6e3857c5a9df5e8edbe9e785b995f337ef5
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload: {}
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: knowledge-retrieval
+      id: 1787839545212-source-1787922573633-target
+      selected: false
+      source: '1787839545212'
+      sourceHandle: source
+      target: '1787922573633'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1787839737122-source-1787927230978-target
+      source: '1787839737122'
+      sourceHandle: source
+      target: '1787927230978'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: template-transform
+      id: 1787922573633-source-1787924261060-target
+      source: '1787922573633'
+      sourceHandle: source
+      target: '1787924261060'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: 1787924261060-source-1787839737122-target
+      source: '1787924261060'
+      sourceHandle: source
+      target: '1787839737122'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: http-request
+      id: 1787927230978-source-1787925434630-target
+      source: '1787927230978'
+      sourceHandle: source
+      target: '1787925434630'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1787925434630-source-1788003272770-target
+      source: '1787925434630'
+      sourceHandle: source
+      target: '1788003272770'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1787925434630-source-1788005131443-target
+      source: '1787925434630'
+      sourceHandle: source
+      target: '1788005131443'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1788005131443-source-1788005316194-target
+      source: '1788005131443'
+      sourceHandle: source
+      target: '1788005316194'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1788003272770-source-1788005316194-target
+      source: '1788003272770'
+      sourceHandle: source
+      target: '1788005316194'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: end
+      id: 1788005316194-source-1788004625863-target
+      source: '1788005316194'
+      sourceHandle: source
+      target: '1788004625863'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 用户问题
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: input
+        - default: ''
+          hint: ''
+          label: 用户名称
+          options: []
+          placeholder: ''
+          required: true
+          type: number
+          variable: user_id
+        - default: ''
+          hint: ''
+          label: 用户名
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: user_name
+        - default: ads_realtime_overview,ads_shop_rank_daily,ads_top_spu_daily,dws_shop_daily_gmv,dws_spu_daily_sales,dws_category_daily_sales,dws_user_daily_activity
+          hint: ''
+          label: 允许查询的表
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: allowed_tables
+      height: 187
+      id: '1787839545212'
+      position:
+        x: -326.3592275953407
+        y: 259.53919147985715
+      positionAbsolute:
+        x: -326.3592275953407
+        y: 259.53919147985715
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1787924261060'
+          - output
+        model:
+          completion_params: {}
+          mode: chat
+          name: kimi-k2.7-code
+          provider: langgenius/moonshot/moonshot
+        prompt_config:
+          jinja2_variables: []
+        prompt_template:
+        - edition_type: basic
+          id: 111e7f80-82d2-4e1d-9c67-b5b0b6d48689
+          role: system
+          text: "你是 StarRocks + Paimon 的 NL2SQL 引擎。把用户的中文问题转换成可在 StarRocks 上执行的只读\
+            \ SQL。\n\n【执行环境（固定事实，不可违背）】\n- 查询引擎：StarRocks（MySQL 协议，9030 端口），数据在 Paimon\
+            \ 外部 Catalog。\n- 所有表必须写完整三段式：paimon_oss_catalog.mall_dw.<表名>。\n  禁止只写表名，禁止写\
+            \ mall_dw.<表名> 以外的任意前缀。\n- stat_date 是 STRING，格式 'yyyy-MM-dd'。\n  最近7天写法：stat_date\
+            \ >= CAST(DATE_SUB(CURRENT_DATE(), INTERVAL 6 DAY) AS STRING)\n  指定某天写法：stat_date\
+            \ = '2026-08-26'\n- 只允许 SELECT（含 WITH 公共表表达式）；禁止 INSERT/UPDATE/DELETE/DROP/TRUNCATE/ALTER/CREATE。\n\
+            - 明细查询最多 LIMIT 200；聚合/排行查询最多 LIMIT 100。\n- 趋势类必须按 stat_date 升序；排行类必须按核心指标降序。\n\
+            \n【Schema 上下文（来自向量检索，动态召回，仅可使用此处出现的表与字段）】\n{{#1787924261060.output#}}\n\
+            【用户问题】\n{{#1787839545212.input#}}\n\n【生成规则】\n1. 只能使用 Schema 上下文中出现的表和字段；上下文未出现的字段一律不得使用。\n\
+            2. 如果问题需要的表没有被召回（不在上下文中），返回 NO_VALID_SQL 并说明缺哪张表。\n3. 只输出 SQL：不要解释、不要\
+            \ Markdown 代码块、不要注释、不要分号结尾。\n4. 时间未指定默认最近7天（用上面的写法，不要用具体写死的日期）。\n5. 若确实无法生成正确\
+            \ SQL，返回 NO_VALID_SQL。\n6. 必须输出单行 SQL：整条语句写在一行内，禁止使用换行符分段。\n\n仅输出 SQL\
+            \ 或 NO_VALID_SQL："
+        selected: false
+        structured_output_enabled: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1787839737122'
+      position:
+        x: 880.1581724156958
+        y: 202.43022798687173
+      positionAbsolute:
+        x: 880.1581724156958
+        y: 202.43022798687173
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        dataset_ids:
+        - Bb5vMSOuircHqn8mmLbNEQxiOU3HVb4flygFkVEQYwR1JfqYr04aPow6PpJTBfDK
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: 0.3
+          top_k: 5
+          weights:
+            keyword_setting:
+              keyword_weight: 0.3
+            vector_setting:
+              embedding_model_name: text-embedding-v4
+              embedding_provider_name: langgenius/tongyi/tongyi
+              vector_weight: 0.7
+            weight_type: customized
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1787839545212'
+        - input
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 90
+      id: '1787922573633'
+      position:
+        x: 164.1275918824249
+        y: 280.53919147985715
+      positionAbsolute:
+        x: 164.1275918824249
+        y: 280.53919147985715
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        template: "{% for item in arg1 %}{{ item.content }}\r\n\r\n{% endfor %}"
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1787922573633'
+          - result
+          value_type: array[object]
+          variable: arg1
+      height: 52
+      id: '1787924261060'
+      position:
+        x: 567.2949034494176
+        y: 280.53919147985715
+      positionAbsolute:
+        x: 567.2949034494176
+        y: 280.53919147985715
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-19
+            key: ''
+            type: text
+            value: '{{#1787927230978.output#}}'
+          type: raw-text
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求
+        type: http-request
+        url: http://host.docker.internal:5001/api/starrocks/query
+        variables: []
+      height: 138
+      id: '1787925434630'
+      position:
+        x: 1605.4267582875123
+        y: 417.74349177498516
+      positionAbsolute:
+        x: 1605.4267582875123
+        y: 417.74349177498516
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        template: "{\"sql\": \"{{ arg1.split('</think>')[-1] | trim }}\"}\r\n"
+        title: 模板转换 2
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1787839737122'
+          - text
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '1787927230978'
+      position:
+        x: 1185.7173654141116
+        y: 202.43022798687173
+      positionAbsolute:
+        x: 1185.7173654141116
+        y: 202.43022798687173
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 6b620fa1-452a-408e-b9a9-e8e592d5bb11
+          role: system
+          text: '你是企业经营分析助手。基于用户问题和查询结果，输出简洁、专业的分析。
+
+
+            要求：
+
+            1. 先用一句话直接回答用户的问题。
+
+            2. 核心数据用 Markdown 表格展示，最多 10 行。
+
+            3. 给出 2-3 条关键发现（趋势说走势、排行说头部、对比说差异）。
+
+            4. 金额保留 2 位小数并加千分位；数量用整数。
+
+            5. 结果为 0 行时输出"当前查询条件下暂无数据"。
+
+            6. 严禁编造数据，不要输出原始 JSON。
+
+
+            输入：
+
+            用户问题：{{#1787839545212.input#}}
+
+            查询结果：{{#1787925434630.body#}}'
+        selected: false
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1788003272770'
+      position:
+        x: 1951.0772957773993
+        y: 216.72127965050413
+      positionAbsolute:
+        x: 1951.0772957773993
+        y: 216.72127965050413
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        outputs:
+        - value_selector:
+          - '1788005316194'
+          - output
+          value_type: string
+          variable: output
+        - value_selector:
+          - '1787927230978'
+          - output
+          value_type: string
+          variable: SQL
+        - value_selector:
+          - '1787925434630'
+          - body
+          value_type: string
+          variable: body
+        selected: false
+        title: 输出
+        type: end
+      height: 140
+      id: '1788004625863'
+      position:
+        x: 2602.281595696498
+        y: 500.44977333477175
+      positionAbsolute:
+        x: 2602.281595696498
+        y: 500.44977333477175
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.7-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: b1c1b16f-5d00-46d3-a2e9-4252471cf0b8
+          role: system
+          text: '你是数据可视化助手。根据查询结果生成一张图表的 URL。
+
+
+            只输出一个 URL，不要任何解释、不要 Markdown 代码块。
+
+
+            URL 格式：
+
+            https://quickchart.io/chart?w=600&h=400&c=<Chart.js配置，需URL编码>
+
+
+            图表规则：
+
+            - 排行/对比 → bar；趋势 → line；占比 → pie
+
+            - 必须带中文标题：{"options":{"title":{"display":true,"text":"标题"}}}
+
+            - 整个 c= 后面的 JSON 必须做 URL 编码
+
+
+            输入：
+
+            - 用户问题：{{#1787839545212.input#}}
+
+            - 查询结果：{{#1787925434630.body#}}'
+        selected: false
+        title: LLM 3
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1788005131443'
+      position:
+        x: 1929.2520270324558
+        y: 622.8549799147835
+      positionAbsolute:
+        x: 1929.2520270324558
+        y: 622.8549799147835
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        template: "{{ arg1 }}\r\n\r\n![图表]({{ arg2 }})"
+        title: 模板转换 3
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1788003272770'
+          - text
+          value_type: string
+          variable: arg1
+        - value_selector:
+          - '1788005131443'
+          - text
+          value_type: string
+          variable: arg2
+      height: 52
+      id: '1788005316194'
+      position:
+        x: 2243.887708937423
+        y: 514.8773345450622
+      positionAbsolute:
+        x: 2243.887708937423
+        y: 514.8773345450622
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: 193.24567285244393
+      y: 127.39462849126777
+      zoom: 0.8705505632961248
+  rag_pipeline_variables: []

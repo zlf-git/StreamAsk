@@ -1,0 +1,163 @@
+# ============================================================
+# AIDataAnalysis_StarRocks · 完整数据栈一键环境
+# 组件：Flink(流批一体) + Paimon(湖仓) + Kafka(接入层)
+#       + StarRocks(OLAP 直查 Paimon) + MySQL(用户/权限库)
+# 数据流向：
+#   Kafka/MySQL -> Flink ETL -> Paimon 湖仓(mall_dw)
+#             -> StarRocks 通过 Paimon 外部 Catalog 直查
+# 说明：Flink 使用官方镜像 flink:1.17.2-scala_2.12
+# ============================================================
+
+services:
+  # ---------- StarRocks 3.2.x all-in-one（FE+BE 合一，内置 Paimon 读取库）----------
+  starrocks:
+    image: starrocks/allin1-ubuntu:3.2.11
+    container_name: sr-ai-analysis
+    hostname: starrocks
+    ports:
+      - "9030:9030"   # 查询端口（MySQL 协议，pymysql 连接这里）
+      - "8030:8030"   # FE HTTP 端口
+      - "8040:8040"   # BE HTTP 端口
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - sr_meta:/data/starrocks/fe/meta
+      - sr_storage:/data/starrocks/be/storage
+      - paimon_warehouse:/paimon_warehouse   # 共享 Paimon 湖仓，StarRocks 直查
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8030/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    networks:
+      - ai-analysis-net
+
+  # ---------- MySQL 8.0：用户/权限库 + CDC 数据源 ----------
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-ai-analysis
+    hostname: mysql
+    command:
+      - --server-id=1
+      - --log_bin=mysql-bin
+      - --binlog-format=ROW
+      - --binlog-row-image=FULL
+      - --gtid-mode=ON
+      - --enforce-gtid-consistency=ON
+    ports:
+      - "3307:3306"   # 本机 3306 已被占用，映射到 3307
+    environment:
+      MYSQL_ROOT_PASSWORD: '123456'
+      MYSQL_DATABASE: ai_data_analysis
+      MYSQL_USER: ai_user
+      MYSQL_PASSWORD: 'ai_pass123'
+    volumes:
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./docker/mysql/init-cdc.sql:/docker-entrypoint-initdb.d/init-cdc.sql:ro
+      - mysql_data:/var/lib/mysql
+    networks:
+      - ai-analysis-net
+
+  # ---------- Flink 1.17.2 JobManager（本地自构建镜像 flink-with-paimon）----------
+  jobmanager:
+    image: flink-with-paimon:1.17.2
+    container_name: flink-jobmanager
+    hostname: jobmanager
+    command: jobmanager
+    ports:
+      - "8081:8081"   # Flink Web UI
+    environment:
+      FLINK_PROPERTIES: "jobmanager.rpc.address: jobmanager;jobmanager.bind-host: 0.0.0.0;taskmanager.bind-host: 0.0.0.0;taskmanager.numberOfTaskSlots: 8;rest.bind-address: 0.0.0.0"
+    volumes:
+      - ./docker/flink/lib/paimon-flink-1.17-0.8.1.jar:/opt/flink/lib/paimon-flink-1.17-0.8.1.jar:ro
+      - ./docker/flink/lib/paimon-oss-0.8.1.jar:/opt/flink/lib/paimon-oss-0.8.1.jar:ro
+      - ./docker/flink/lib/paimon-s3-0.8.1.jar:/opt/flink/lib/paimon-s3-0.8.1.jar:ro
+      - ./docker/flink/lib/flink-shaded-hadoop-2-uber.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber.jar:ro
+      - ./docker/flink/lib/flink-sql-connector-kafka.jar:/opt/flink/lib/flink-sql-connector-kafka.jar:ro
+      - ./docker/flink/lib/flink-sql-connector-mysql-cdc-2.4.2.jar:/opt/flink/lib/flink-sql-connector-mysql-cdc-2.4.2.jar:ro
+      - ./docker/flink/lib/flink-sql-connector-hive-3.1.3_2.12-1.17.2.jar:/opt/flink/lib/flink-sql-connector-hive-3.1.3_2.12-1.17.2.jar:ro
+      - ./docker/flink/init:/flink-init:ro
+      - paimon_warehouse:/paimon_warehouse
+    networks:
+      - ai-analysis-net
+    depends_on:
+      - starrocks
+
+  # ---------- Flink 1.17.2 TaskManager（本地自构建镜像 flink-with-paimon）----------
+  taskmanager:
+    image: flink-with-paimon:1.17.2
+    container_name: flink-taskmanager
+    hostname: taskmanager
+    command: taskmanager
+    environment:
+      FLINK_PROPERTIES: "jobmanager.rpc.address: jobmanager;jobmanager.bind-host: 0.0.0.0;taskmanager.bind-host: 0.0.0.0;taskmanager.numberOfTaskSlots: 8;rest.bind-address: 0.0.0.0"
+    volumes:
+      - ./docker/flink/lib/paimon-flink-1.17-0.8.1.jar:/opt/flink/lib/paimon-flink-1.17-0.8.1.jar:ro
+      - ./docker/flink/lib/paimon-oss-0.8.1.jar:/opt/flink/lib/paimon-oss-0.8.1.jar:ro
+      - ./docker/flink/lib/paimon-s3-0.8.1.jar:/opt/flink/lib/paimon-s3-0.8.1.jar:ro
+      - ./docker/flink/lib/flink-shaded-hadoop-2-uber.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber.jar:ro
+      - ./docker/flink/lib/flink-sql-connector-kafka.jar:/opt/flink/lib/flink-sql-connector-kafka.jar:ro
+      - ./docker/flink/lib/flink-sql-connector-mysql-cdc-2.4.2.jar:/opt/flink/lib/flink-sql-connector-mysql-cdc-2.4.2.jar:ro
+      - ./docker/flink/lib/flink-sql-connector-hive-3.1.3_2.12-1.17.2.jar:/opt/flink/lib/flink-sql-connector-hive-3.1.3_2.12-1.17.2.jar:ro
+      - ./docker/flink/init:/flink-init:ro
+      - paimon_warehouse:/paimon_warehouse
+    networks:
+      - ai-analysis-net
+    depends_on:
+      - jobmanager
+
+  # ---------- Kafka 3.7（KRaft 单节点，数据接入层）----------
+  kafka:
+    image: bitnami/kafka:3.7
+    container_name: kafka-ai-analysis
+    hostname: kafka
+    ports:
+      - "9092:9092"   # 宿主机访问：localhost:9092
+    environment:
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+      - KAFKA_CFG_LISTENERS=PLAINTEXT_INTERNAL://:19092,PLAINTEXT_EXTERNAL://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT_INTERNAL://kafka:19092,PLAINTEXT_EXTERNAL://localhost:9092
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT_INTERNAL:PLAINTEXT,PLAINTEXT_EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT_INTERNAL
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    networks:
+      - ai-analysis-net
+
+  # ---------- Hive Metastore：Flink/Paimon Catalog 元数据持久化层 ----------
+  # 作用：替代 Flink 内存级 catalog（重启即丢），把 catalog/表定义落库，跨 SQL Client 会话不丢
+  # 镜像用 Apache 官方 apache/hive:4.0.0（standalone metastore 模式，端口 9083）
+  # 后端元数据库：mysql-ai-analysis 上的 metastore 库（用户 hive/hive123，已建好）
+  # 注意：apache/hive 官方镜像不含 MySQL JDBC 驱动，需挂载 mysql-connector-j.jar
+  hive-metastore:
+    image: apache/hive:4.0.0
+    container_name: hive-metastore
+    hostname: hive-metastore
+    restart: unless-stopped
+    ports:
+      - "9083:9083"
+    environment:
+      SERVICE_NAME: metastore
+      DB_DRIVER: mysql
+      SERVICE_OPTS: "-Djavax.jdo.option.ConnectionDriverName=com.mysql.cj.jdbc.Driver -Djavax.jdo.option.ConnectionURL=jdbc:mysql://mysql-ai-analysis:3306/metastore?createDatabaseIfNotExist=true -Djavax.jdo.option.ConnectionUserName=hive -Djavax.jdo.option.ConnectionPassword=hive123"
+    volumes:
+      - ./docker/hive/lib/mysql-connector-j.jar:/opt/hive/lib/mysql-connector-j.jar:ro
+      # Paimon 仓库卷：metastore=hive 时 HMS 会自行在仓库路径建表目录，
+      # 必须让 hive-metastore 与 flink 看到同一份 /paimon_warehouse
+      - paimon_warehouse:/paimon_warehouse
+    networks:
+      - ai-analysis-net
+    depends_on:
+      - mysql
+
+volumes:
+  sr_meta:
+  sr_storage:
+  mysql_data:
+  paimon_warehouse:
+
+networks:
+  ai-analysis-net:
+    driver: bridge
